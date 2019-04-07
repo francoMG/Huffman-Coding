@@ -15,6 +15,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        EditText et = (EditText)findViewById(R.id.mainInput);
+        et.setText("Tengo un piso enladrillado. Quien lo desenladrillará. El desenladrillador que lo desenladrille buen desenladrillador será.");
+
 
         Button button = (Button) findViewById(R.id.mainButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -27,11 +30,25 @@ public class MainActivity extends AppCompatActivity {
                 String freqs = "";
 
                 HashMap<Character, String> code = Compress.compress(text);
-                for (HashMap.Entry<Character, String> entry : code.entrySet()) {
-                    freqs += "\n" + (entry.getKey() + " : " + entry.getValue());
-                }
 
-                System.out.println(freqs);
+                String textComp = "";
+                for(int i = 0; i < text.length(); i++)
+                    textComp += code.get(text.charAt(i));
+
+
+                double sz = text.length();
+                double szc = textComp.length() / 8;
+
+                freqs +=  "\nTamaño normal     : " + sz + " bytes";
+                freqs +=  "\nTamaño comprimido : " + szc + " bytes";
+                freqs +=  "\nReducción         : " + String.format("%.2f", (szc*100/sz)) + "%";
+                freqs +=  "\n";
+
+                for (HashMap.Entry<Character, String> entry : code.entrySet())
+                    freqs += "\n" + (entry.getKey() + " : " + entry.getValue());
+
+                freqs += "\n\nMensaje comprimido:\n\n";
+                freqs += textComp;
 
                 toModify.setText(freqs);
             }
