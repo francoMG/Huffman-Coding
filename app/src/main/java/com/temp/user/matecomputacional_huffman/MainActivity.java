@@ -36,12 +36,13 @@ public class MainActivity extends AppCompatActivity {
                     textComp += code.get(text.charAt(i));
 
 
-                double sz = text.length();
-                double szc = textComp.length() / 8;
+                int sz = text.length();
+                int szc = textComp.length() / 8;
+                double por = (szc*100/sz);
 
-                freqs +=  "\nTamaño normal     : " + sz + " bytes";
+                freqs +=  "\nTamaño normal        : " + sz + " bytes";
                 freqs +=  "\nTamaño comprimido : " + szc + " bytes";
-                freqs +=  "\nReducción         : " + String.format("%.2f", (szc*100/sz)) + "%";
+                freqs +=  "\nReducido al              : " + String.format("%.2f", por) + "%";
                 freqs +=  "\n";
 
                 for (HashMap.Entry<Character, String> entry : code.entrySet())
